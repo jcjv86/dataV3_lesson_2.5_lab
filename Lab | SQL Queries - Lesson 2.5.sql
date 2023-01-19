@@ -49,6 +49,7 @@ SELECT *, DATE_FORMAT(rental_date, "%M") AS month, DATE_FORMAT(rental_date, "%W"
 
 -- 8. Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week.
 
+/* Old version
 SELECT *, DATE_FORMAT(rental_date, "%W") as day,
 CASE
 WHEN DATE_FORMAT(rental_date, "%W") = 'Saturday' then 'weekend'
@@ -57,7 +58,15 @@ WHEN DATE_FORMAT(rental_date, "%W") <> 'Saturday' OR 'Sunday' then 'workday'
 ELSE ''
 END AS 'day_type'
 FROM rental;
+*/
 
+-- New version, shorter and cleaner.
+SELECT *, DATE_FORMAT(rental_date, "%W") as day,
+CASE
+WHEN DATE_FORMAT(rental_date, "%W") = 'Saturday' or 'Sunday' then 'weekend'
+ELSE 'workday'
+END AS 'day_type'
+FROM rental;
 
 -- 9. Get release years.
 
